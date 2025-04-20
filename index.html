@@ -75,7 +75,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Customer ID</th>
                         <th scope="col">Customer name</th>
                         <th scope="col">Contact</th>
                         <th scope="col">Address</th>
@@ -122,7 +122,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">Item code</th>
                         <th scope="col">Item name</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Unit price</th>
@@ -144,8 +144,115 @@
         </div>
         <div class="row">
 
+
+
             <!--Place order form-->
             <section id="placeOrder">
+                <h1 class="topic">Place order</h1>
+
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col container1">
+                            <form>
+                                <h2 class="topic2">Invoice</h2>
+                                <div class="mb-2">
+                                    <label for="OrderId" class="form-label lable-from">Order id : </label>
+                                    <input type="text" class="form-control" id="OrderId" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="CustomerId" class="form-label lable-from">Customer Id: </label>
+                                    <input type="text" class="form-control" id="CustomerId" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="CustomerName" class="form-label lable-from">Customer Name: </label>
+                                    <input type="text" class="form-control" id="CustomerName" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="CustomerSalary" class="form-label lable-from">Salary : </label>
+                                    <input type="text" class="form-control" id="CustomerSalary" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="CustomerAddress" class="form-label lable-from">Address : </label>
+                                    <input type="text" class="form-control" id="CustomerAddress" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="date" class="form-label lable-from">Date: </label>
+                                    <input type="date" class="form-control" id="date" aria-describedby="emailHelp">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="col container1">
+                            <form>
+                                <h2 class="topic2">Item select </h2>
+                                <div class="mb-2">
+                                    <label for="itemId" class="form-label lable-from">Item: </label>
+                                    <input type="text" class="form-control" id="itemId" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="ItemName" class="form-label lable-from">Customer Id: </label>
+                                    <input type="text" class="form-control" id="ItemName" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Price" class="form-label lable-from">Customer Name: </label>
+                                    <input type="text" class="form-control" id="Price" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Quantity" class="form-label lable-from">Salary : </label>
+                                    <input type="text" class="form-control" id="Quantity" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Order Quantity" class="form-label lable-from">Address : </label>
+                                    <input type="text" class="form-control" id="Order Quantity" aria-describedby="emailHelp">
+                                </div>
+                                <button type="button" class="btn btn-danger btn">Add item</button>
+
+                            </form>
+                        </div>
+                        <div id="pay-container" class="row container1">
+                            <form>
+                                    <label class="form-label total">Total : 00000 Rs/=</label>
+                                    <label class="form-label total">Sub Total : 00000 Rs/=</label>
+
+                                <div class="mb-2">
+                                    <label for="cash" class="form-label lable-from">Cash: </label>
+                                    <input type="text" class="form-control" id="cash" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Discount" class="form-label lable-from">Discount: </label>
+                                    <input type="text" class="form-control" id="Discount" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="Balance" class="form-label lable-from">Address : </label>
+                                    <input type="text" class="form-control" id="Balance" aria-describedby="emailHelp">
+                                </div>
+                                <button type="button" class="btn btn-success">Purchase</button>
+
+                            </form>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col">Item code</th>
+                                <th scope="col">Item name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
 
             </section>
 
