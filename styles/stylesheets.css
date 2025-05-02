@@ -386,6 +386,20 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 }
 
+
+#customer-dropdown {
+    width: 40vw;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: lightblue;
+    margin: 5vw;
+    height:40px;
+}
+.unregister-row {
+    background-color: #ffcccc;
+}
+
 /* Responsive design */
 @media (max-width: 992px) {
     .topic, .topic2 {

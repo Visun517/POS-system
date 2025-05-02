@@ -12,7 +12,6 @@ $('#saveCustomerBtn').on('click', function(){
     console.log(`Register = ${register} customerName=${customerName} customerAddress=${customerAddress} customerSalary=${customerSalary} `);
 
     const isUpdateMode = $(this).data('update-mode');
-    console.log(isUpdateMode);
 
     if (register === '' || customerName === '' || customerAddress === '' ||  customerSalary === '' ) {
 
@@ -29,7 +28,6 @@ $('#saveCustomerBtn').on('click', function(){
     }else{
         let newCustomer = new CustomerModel(register, customerName, customerAddress, customerSalary);
         Customer.push(newCustomer);
-        console.log(Customer);
         loadTable();
 
         Swal.fire({
@@ -51,14 +49,13 @@ function loadTable() {
         let customerAddress = customer.customerAddress;
         let customerSalary = customer.customerSalary;
 
-
-        let newCustomerDate =`<tr>
-                                        <td>${index + 1}</td>
-                                        <td>${register}</td>
-                                        <td>${customerName}</td>
-                                        <td>${customerSalary}</td>
-                                        <td>${customerAddress}</td>
-                                  <tr>`
+        let newCustomerDate = `<tr>
+                     <td>${index + 1}</td>
+                     <td>${register}</td>
+                     <td>${customerName}</td>
+                     <td>${customerAddress}</td>
+                     <td>${customerSalary}</td>
+                   </tr>`;
 
         $('#customer-tbody').append(newCustomerDate);
     })
@@ -100,9 +97,7 @@ $('#customer-tbody').on('click', 'tr', function () {
 
 
 function updateCustomer(){
-    console.log('updateCustomer');
     let index = clickedCustomerIndex;
-    console.log(index);
     let register = $('#register').val();
     let customerName = $('#customerName1').val();
     let customerAddress = $('#customerAddress1').val();
@@ -128,9 +123,60 @@ function updateCustomer(){
             icon: 'success',
             confirmButtonText: 'Cool'
         })
-
     }
 
-
-
 }
+
+$('#search-btn').on('click', function(){
+    let customerName = $('#customer-input').val();
+
+    Customer.map((customer, index) => {
+        if (customer.customerName === customerName){
+
+            $('#customer-tbody').empty();
+
+            let register = customer.register;
+            let customerName = customer.customerName;
+            let customerAddress = customer.customerAddress;
+            let customerSalary = customer.customerSalary;
+
+
+            let newCustomerDate =`<tr>
+                                        <td>${index + 1}</td>
+                                        <td>${register}</td>
+                                        <td>${customerName}</td>
+                                        <td>${customerSalary}</td>
+                                        <td>${customerAddress}</td>
+                                  <tr>`
+
+            $('#customer-tbody').append(newCustomerDate);
+        }
+    })
+})
+
+$('#btn-clear').on('click', function(){
+    $('#customer-input').val('');
+    loadTable();
+})
+
+$('#btn-unregister').on('click', function(){
+
+    let customerName = $('#customer-input').val();
+
+    Customer.map((customer, index) => {
+        if (customer.customerName === customerName) {
+            customer.register = 'unregister';
+            loadTable();
+        }
+    })
+})
+
+$('#clearCustomerBtn').on('click', function(){
+    $('#register').val('');
+    $('#customerName1').val('');
+    $('#customerAddress1').val('');
+    $('#customerSalary1').val('');
+
+})
+
+

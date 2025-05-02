@@ -61,15 +61,15 @@
 
                 <div class="card customer-card">
 
-                    <div class="input-group customer-input">
+                    <div class="input-group customer-input" >
                         <span class="input-group-text">Input customer name</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                        <textarea class="form-control" id="customer-input" aria-label="With textarea"></textarea>
                     </div>
 
                     <div class="card-body btn-group">
-                        <button type="button" class="btn btn-primary">Search</button>
-                        <button type="button" class="btn btn-danger">Unregister</button>
-                        <button type="button" class="btn btn-info">Clear</button>
+                        <button type="button" class="btn btn-primary" id="search-btn">Search</button>
+                        <button type="button" class="btn btn-danger" id="btn-unregister">Unregister</button>
+                        <button type="button" class="btn btn-info" id="btn-clear">Clear</button>
                     </div>
 
                 </div>
@@ -151,13 +151,13 @@
 
                     <div class="input-group customer-input">
                         <span class="input-group-text">Input Item name</span>
-                        <textarea class="form-control" aria-label="With textarea"></textarea>
+                        <textarea class="form-control" id="item-input" aria-label="With textarea"></textarea>
                     </div>
 
                     <div class="card-body btn-group">
-                        <button type="button" class="btn btn-primary">Search</button>
-                        <button type="button" class="btn btn-danger">Unregister</button>
-                        <button type="button" class="btn btn-info">Clear</button>
+                        <button type="button" class="btn btn-primary" id="item-search-btn">Search</button>
+                        <button type="button" class="btn btn-danger" id="item-stock-btn">Stock out</button>
+                        <button type="button" class="btn btn-info" id="item-clear-btn">Clear</button>
                     </div>
 
                 </div>
@@ -177,8 +177,8 @@
                                 <div class="modal-body">
                                     <form id="addItemForm">
                                         <div class="mb-3">
-                                            <label for="itemId1" class="form-label">Item ID</label>
-                                            <input type="text" class="form-control" id="itemId1" required>
+                                            <label for="stock" class="form-label">Stock out or not</label>
+                                            <input type="text" class="form-control" id="stock" required>
                                         </div>
                                         <div class="mb-3">
                                             <label for="itemName1" class="form-label">Item Name</label>
@@ -197,7 +197,6 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="saveItemBtn">Save</button>
-                                    <button type="button" class="btn btn-info" id="renewtemBtn">Renew</button>
                                     <button type="button" class="btn btn-danger" id="clearItemBtn">Clear</button>
                                 </div>
                             </div>
@@ -210,12 +209,13 @@
                     <thead>
                     <tr>
                         <th scope="col">Item code</th>
+                        <th scope="col"> Stock in or not</th>
                         <th scope="col">Item name</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Unit price</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="item-tbody">
                     <tr>
                         <th scope="row">1</th>
                         <td></td>
@@ -354,6 +354,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="controller/posContrller.js"></script>
 <script type="module" src="controller/CustomerController.js"></script>
+<script type="module" src="controller/ItemController.js"></script>
 
 </body>
 </html>
