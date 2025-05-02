@@ -1,8 +1,3 @@
-// document.getElementById('home').style.display = 'block';
-// document.getElementById('customer').style.display = 'none';
-// document.getElementById('item').style.display = 'none';
-// document.getElementById('placeOrder').style.display = 'none';
-
 
 $('#home').css('display', 'block');
 $('#customer').css('display', 'none');
