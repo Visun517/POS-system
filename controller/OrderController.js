@@ -9,14 +9,73 @@ $(document).ready(function () {
 
     let nextOrderId = Orders.length + 1;
     $('#OrderId').val('Order -' + nextOrderId);
+    let selectRow;
 
     $('#place-order-tbody').on('click', 'tr', function () {
+        selectRow = $(this)
+        let row = selectRow.find('td')
+        let orderDate = $('#date').val();
+
+        let itemName = row.eq(2).text().trim();
+        let price = row.eq(3).text().trim();
+        let quantity = row.eq(4).text().trim();
+        let total = row.eq(5).text().trim();
+
+        $('#modalItemName').val(itemName);
+        $('#modalUnitPrice').val(price);
+        $('#modalQuantity').val(quantity);
+        $('#modalTotalPrice').val(total);
+        $('#orderDate').val(orderDate);
+
         $('#orderModal').modal('show');
-        let row = $(this).find('td');
-        let orderId = row.eq(1).text().trim();
-        console.log(orderId);
+    })
 
+    $('#updateOrder').on('click', function(){
+        let quantity = $('#modalQuantity').val();
+        let itemName = $('#modalItemName').val();
+        let cartQuantity = $('#Order-Quantity').val();
 
+        if (quantity === ''){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Quantity update unsuccessfully ..!',
+                icon: 'error',
+                confirmButtonText: 'Try again'
+            })
+            return;
+        }
+
+        Item.forEach((item, index) => {
+            if (item.itemName === itemName) {
+                if (cartQuantity > quantity){
+                    let bal = cartQuantity - quantity;
+                    item.quantity += bal;
+                }else{
+                    let bal =quantity - cartQuantity;
+                    item.quantity -= bal;
+                }
+                selectRow.find('td').eq(4).text(quantity);
+
+                Swal.fire({
+                    title: 'success!',
+                    text: 'Quantity update Successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'Cool'
+                })
+            }
+        })
+
+    })
+    $('#deleteOrder').on('click', function(){
+        selectRow.remove();
+        $('#orderModal').modal('hide');
+
+        Swal.fire({
+            title: 'success!',
+            text: 'Item remove Successfully!',
+            icon: 'success',
+            confirmButtonText: 'Cool'
+        })
     })
 
 })
@@ -27,6 +86,8 @@ function loadCustomerIds() {
     Customer.forEach((customer , index) => {
         dropdown.append(`<option value="${index}">${index + 1}</option>`);
     });
+
+
 }
 
 $('#CustomerId').on('change', function () {
@@ -40,9 +101,16 @@ function loadItemIds() {
     const dropdown = $('#itemId');
     dropdown.empty();
     dropdown.append('<option value="" disabled selected></option>');
-    Item.forEach((customer , index) => {
+    Item.forEach((item , index) => {
         dropdown.append(`<option value="${index}">${index + 1}</option>`);
     });
+
+    // const dropdown1 = $('#modalItemId');
+    // dropdown1.empty();
+    // dropdown1.append('<option value="" disabled selected></option>');
+    // Item.forEach((item , index) => {
+    //     dropdown1.append(`<option value="${index}">${item.itemName}</option>`);
+    // });
 }
 $('#itemId').on('change', function () {
     let itemIndex = $('#itemId').val();
@@ -202,7 +270,6 @@ $('#Order-Quantity').on('change', function(){
 $('#clear-cart').on('click', function(){
     $('#place-order-tbody').empty();
 })
-
 export {loadCustomerIds}
 export {loadItemIds}
 
