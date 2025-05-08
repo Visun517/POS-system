@@ -26,7 +26,7 @@ $('#saveItemBtn').on('click', function(){
         updateItem();
 
     }else{
-        let newItem = new ItemModel(stock, itemName, itemPrice, itemQuantity);
+        let newItem = new ItemModel(stock, itemName, itemQuantity , itemPrice);
         Item.push(newItem);
         loadTable();
 
@@ -35,7 +35,14 @@ $('#saveItemBtn').on('click', function(){
             text: 'Added successfully!',
             icon: 'success',
             confirmButtonText: 'Cool'
-        })
+        });
+
+        $('#stock').val('');
+        $('#itemName1').val('');
+        $('#itemPrice1').val('');
+        $('#itemQuantity1').val('');
+
+
     }
 })
 
@@ -121,7 +128,12 @@ function updateItem(){
             text: 'Added successfully!',
             icon: 'success',
             confirmButtonText: 'Cool'
-        })
+        });
+
+        $('#stock').val('');
+        $('#itemName1').val('');
+        $('#itemPrice1').val('');
+        $('#itemQuantity1').val('');
     }
 
 }
@@ -174,5 +186,7 @@ $('#clearItemBtn').on('click', function(){
     $('#itemPrice1').val('');
     $('#itemQuantity1').val('');
 })
+
+export {loadTable}
 
 

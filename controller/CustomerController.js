@@ -7,13 +7,12 @@ $('#saveCustomerBtn').on('click', function(){
     let register = $('#register').val();
     let customerName = $('#customerName1').val();
     let customerAddress = $('#customerAddress1').val();
-    let customerSalary = $('#customerSalary1').val();
 
-    console.log(`Register = ${register} customerName=${customerName} customerAddress=${customerAddress} customerSalary=${customerSalary} `);
+    // console.log(`Register = ${register} customerName=${customerName} customerAddress=${customerAddress} `);
 
     const isUpdateMode = $(this).data('update-mode');
 
-    if (register === '' || customerName === '' || customerAddress === '' ||  customerSalary === '' ) {
+    if (register === '' || customerName === '' || customerAddress === '' ) {
 
         Swal.fire({
             title: 'Error!',
@@ -26,7 +25,7 @@ $('#saveCustomerBtn').on('click', function(){
         updateCustomer();
 
     }else{
-        let newCustomer = new CustomerModel(register, customerName, customerAddress, customerSalary);
+        let newCustomer = new CustomerModel(register, customerName, customerAddress);
         Customer.push(newCustomer);
         loadTable();
 
@@ -35,7 +34,11 @@ $('#saveCustomerBtn').on('click', function(){
             text: 'Added successfully!',
             icon: 'success',
             confirmButtonText: 'Cool'
-        })
+        });
+
+        $('#register').val('');
+        $('#customerName1').val('');
+        $('#customerAddress1').val('');
     }
 })
 
@@ -47,14 +50,12 @@ function loadTable() {
         let register = customer.register;
         let customerName = customer.customerName;
         let customerAddress = customer.customerAddress;
-        let customerSalary = customer.customerSalary;
 
         let newCustomerDate = `<tr>
                      <td>${index + 1}</td>
                      <td>${register}</td>
                      <td>${customerName}</td>
                      <td>${customerAddress}</td>
-                     <td>${customerSalary}</td>
                    </tr>`;
 
         $('#customer-tbody').append(newCustomerDate);
@@ -69,14 +70,12 @@ $('#customer-tbody').on('click', 'tr', function () {
     let register = clickCustomer.register;
     let customerName = clickCustomer.customerName;
     let customerAddress = clickCustomer.customerAddress;
-    let customerSalary = clickCustomer.customerSalary;
 
     // console.log(`Register = ${register} customerName=${customerName} customerAddress=${customerAddress} customerSalary=${customerSalary} `);
 
     $('#register').val(register);
     $('#customerName1').val(customerName);
     $('#customerAddress1').val(customerAddress);
-    $('#customerSalary1').val(customerSalary);
 
     $('#addCustomerModalLabel').text('Update customer');
 
@@ -101,9 +100,8 @@ function updateCustomer(){
     let register = $('#register').val();
     let customerName = $('#customerName1').val();
     let customerAddress = $('#customerAddress1').val();
-    let customerSalary = $('#customerSalary1').val();
 
-    if (register === '' || customerName === '' || customerAddress === '' ||  customerSalary === '' ) {
+    if (register === '' || customerName === '' || customerAddress === '') {
 
         Swal.fire({
             title: 'Error!',
@@ -113,7 +111,7 @@ function updateCustomer(){
         })
 
     }else{
-        let updatedCustomer = new CustomerModel(register, customerName, customerAddress, customerSalary);
+        let updatedCustomer = new CustomerModel(register, customerName, customerAddress);
         Customer[index] = updatedCustomer;
         loadTable();
 
@@ -122,7 +120,12 @@ function updateCustomer(){
             text: 'Added successfully!',
             icon: 'success',
             confirmButtonText: 'Cool'
-        })
+        });
+
+        $('#register').val('');
+        $('#customerName1').val('');
+        $('#customerAddress1').val('');
+
     }
 
 }
@@ -138,14 +141,12 @@ $('#search-btn').on('click', function(){
             let register = customer.register;
             let customerName = customer.customerName;
             let customerAddress = customer.customerAddress;
-            let customerSalary = customer.customerSalary;
 
 
             let newCustomerDate =`<tr>
                                         <td>${index + 1}</td>
                                         <td>${register}</td>
                                         <td>${customerName}</td>
-                                        <td>${customerSalary}</td>
                                         <td>${customerAddress}</td>
                                   <tr>`
 
@@ -175,7 +176,6 @@ $('#clearCustomerBtn').on('click', function(){
     $('#register').val('');
     $('#customerName1').val('');
     $('#customerAddress1').val('');
-    $('#customerSalary1').val('');
 
 })
 

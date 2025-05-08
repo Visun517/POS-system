@@ -1,3 +1,6 @@
+import {loadCustomerIds} from "./OrderController.js";
+import {loadItemIds} from "./OrderController.js";
+import {loadTable} from "./ItemController.js";
 
 $('#home').css('display', 'block');
 $('#customer').css('display', 'none');
@@ -30,6 +33,7 @@ $('#item-btn').on('click', function(){
     $('#item').css('display', 'block');
     $('#placeOrder').css('display', 'none');
 
+    loadTable();
 });
 
 $('#place-order-btn').on('click', function(){
@@ -38,6 +42,9 @@ $('#place-order-btn').on('click', function(){
     $('#customer').css('display', 'none');
     $('#item').css('display', 'none');
     $('#placeOrder').css('display', 'block');
+
+    loadCustomerIds();
+    loadItemIds();
 
 });
 

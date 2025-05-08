@@ -3,6 +3,5 @@ export default class CustomerModel {
         this.register = register;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
-        this.customerSalary = customerSalary;
     }
 }
