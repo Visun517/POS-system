@@ -3,25 +3,20 @@ import OrderModel from "../model/OrderModel.js";
 
 var labelTotalPrice=0;
 var subTotalPrice=0;
+
 $(document).ready(function () {
     $('#place-order-tbody').empty();
 
     let nextOrderId = Orders.length + 1;
     $('#OrderId').val('Order -' + nextOrderId);
 
-    //loadTable();
-
-
     $('#place-order-tbody').on('click', 'tr', function () {
         $('#orderModal').modal('show');
+        let row = $(this).find('td');
+        let orderId = row.eq(1).text().trim();
+        console.log(orderId);
 
-        let rowIndex = $(this).index();
-        let clickedOrder =  Orders[rowIndex];
 
-        $('#modalItemName').val(clickedOrder.itemName);
-        $('#modalUnitPrice').val(clickedOrder.unitPrice);
-        $('#modalQuantity').val(clickedOrder.quantity);
-        $('#modalTotalPrice').val(clickedOrder.totalPrice);
     })
 
 })
@@ -58,6 +53,7 @@ $('#itemId').on('change', function () {
 })
 
 $('#add-item').on('click', function () {
+    let orderId = $('#OrderId').val();
     let itemName = $('#ItemName').val();
     let unitPrice = $('#Price').val();
     let quantity = $('#Quantity').val();
@@ -66,7 +62,7 @@ $('#add-item').on('click', function () {
     let date = $('#date').val();
     let customerName = $('#CustomerName').val();
 
-    if (itemName === '' || unitPrice === '' || quantity === '' || cartQuantity === '' || totalPrice === '' || date === '' || customerName === '') {
+    if (orderDate === '' || itemName === '' || unitPrice === '' || quantity === '' || cartQuantity === '' || totalPrice === '' || date === '' || customerName === '') {
         Swal.fire({
             title: 'Error!',
             text: 'Add item unsuccessfully ..!',
@@ -77,13 +73,13 @@ $('#add-item').on('click', function () {
 
         let itemIndex = 0;
         Item.map((item , index)=>{
-            if(item.itemName > itemName){
+            if(item.itemName === itemName){
                 itemIndex = index;
             }
         })
-        // Item[itemIndex].quantity -= cartQuantity;
 
         let placeOrderRow = `<tr>
+                                    <td>${orderId}</td>
                                     <td>${itemIndex + 1}</td>
                                     <td>${itemName}</td>
                                     <td>${unitPrice}</td>
@@ -92,13 +88,11 @@ $('#add-item').on('click', function () {
                               <tr>`
         $('#place-order-tbody').append(placeOrderRow);
 
-
         labelTotalPrice += totalPrice;
         subTotalPrice = labelTotalPrice - 50;
 
         $('#totalPrice').text(`Total : ${labelTotalPrice} Rs/=`);
         $('#subTotal').text(`Sub Total : ${subTotalPrice} Rs/=`);
-
 
         Swal.fire({
             title: 'success!',
@@ -106,30 +100,9 @@ $('#add-item').on('click', function () {
             icon: 'success',
             confirmButtonText: 'Cool'
         })
-        $('#ItemName').val('');
-        $('#Price').val('');
-        $('#Quantity').val('');
-        $('#Order-Quantity').val('');
-        $('#itemId').val('');
+
     }
 })
-
-// function loadTable(){
-//     Orders.map((order , index ) => {
-//         $('#place-order-tbody').empty();
-//
-//         let placeOrderRow = `<tr>
-//                                     <td>${index + 1}</td>
-//                                     <td>${order.itemName}</td>
-//                                     <td>${order.unitPrice}</td>
-//                                     <td>${order.quantity}</td>
-//                                     <td>${order.totalPrice}</td>
-//                               <tr>`
-//         $('#place-order-tbody').append(placeOrderRow);
-//
-//     })
-//
-// }
 
 $('#Discount').on('change', function(){
     let cash = $('#cash').val();
@@ -139,58 +112,81 @@ $('#Discount').on('change', function(){
     $('#Balance').val(balance);
 })
 
-$('#purchase-btn').on('click', function(){
+    $('#purchase-btn').on('click', function(){
 
-    let itemName = $('#ItemName').val();
-    let unitPrice = $('#Price').val();
-    let quantity = $('#Quantity').val();
-    let cartQuantity = $('#Order-Quantity').val();
-    let totalPrice = unitPrice * cartQuantity;
-    let date = $('#date').val();
-    let customerName = $('#CustomerName').val();
+        $('#place-order-tbody').val()
+        let cartItemArray = [];
+        let item;
+        let totalPrice = 0;
 
-    if (itemName === '' || unitPrice === '' || quantity === '' || cartQuantity === '' || totalPrice === '' || date === '' || customerName === '') {
-        Swal.fire({
-            title: 'Error!',
-            text: 'Purchase unsuccessfully ..!',
-            icon: 'error',
-            confirmButtonText: 'Try again'
-        })
-    }else{
+        if ($('#place-order-tbody tr').length === 0){
+            Swal.fire({
+                title: 'Error!',
+                text: 'Purchase unsuccessfully ..!',
+                icon: 'error',
+                confirmButtonText: 'Try again'
+            })
 
-        let newOrder = new OrderModel(itemName,unitPrice,cartQuantity,totalPrice, date,customerName,);
-        Orders.push(newOrder);
-        
-        Swal.fire({
-            title: 'success!',
-            text: 'Purchase Successfully!',
-            icon: 'success',
-            confirmButtonText: 'Cool'
-        })
-        console.log(Orders);
+        }else{
+            $('#place-order-tbody tr').each( function () {
+                let row = $(this).find('td');
+                let itemName = row.eq(2).text().trim();
+                let price = row.eq(3).text().trim();
+                let quantity = row.eq(4).text().trim();
+                let total = parseInt(row.eq(5).text().trim());
 
-        let nextOrderId = Orders.length + 1;
-        $('#OrderId').val('Order -' + nextOrderId);
+                if (itemName && price && quantity && total) {
 
-        $('#ItemName').val('');
-        $('#Price').val('');
-        $('#Quantity').val('');
-        $('#Order-Quantity').val('');
-        $('#date').val('');
-        $('#CustomerName').val('');
-        $('#CustomerId').val('');
-        $('#CustomerSalary').val('');
-        $('#CustomerAddress').val('');
-        $('#itemId').val('');
-        $('#totalPrice').text(`Total : ${'0000'} Rs/=`);
-        $('#subTotal').text(`Sub Total : ${'0000'} Rs/=`);
-        $('#cash').val('');
-        $('#Discount').val('');
-        $('#Balance').val('');
+                    item = {
+                        itemName: itemName,
+                        price: price,
+                        quantity: quantity,
+                        total: total
+                    };
+                    totalPrice +=total - 50;
+                    cartItemArray.push(item);
+                    console.log(cartItemArray);
+                }
+            })
+            let date = $('#date').val();
+            let customerName = $('#CustomerName').val();
 
-    }
+            let newOrder = new OrderModel(
+                cartItemArray,
+                totalPrice,
+                date,
+                customerName
+            );
+            Orders.push(newOrder);
+            console.log(Orders);
 
-})
+            let nextOrderId = Orders.length + 1;
+            $('#OrderId').val('Order -' + nextOrderId);
+
+            $('#ItemName').val('');
+            $('#Price').val('');
+            $('#Quantity').val('');
+            $('#Order-Quantity').val('');
+            $('#date').val('');
+            $('#CustomerName').val('');
+            $('#CustomerId').val('');
+            $('#CustomerSalary').val('');
+            $('#CustomerAddress').val('');
+            $('#itemId').val('');
+            $('#totalPrice').text(`Total : ${'0000'} Rs/=`);
+            $('#subTotal').text(`Sub Total : ${'0000'} Rs/=`);
+            $('#cash').val('');
+            $('#Discount').val('');
+            $('#Balance').val('');
+
+            Swal.fire({
+                title: 'success!',
+                text: 'Purchase Successfully!',
+                icon: 'success',
+                confirmButtonText: 'Cool'
+            })
+        }
+    })
 
 $('#Order-Quantity').on('change', function(){
     let cartQuantity = $('#Order-Quantity').val();
@@ -202,6 +198,11 @@ $('#Order-Quantity').on('change', function(){
         }
     })
 })
+
+$('#clear-cart').on('click', function(){
+    $('#place-order-tbody').empty();
+})
+
 export {loadCustomerIds}
 export {loadItemIds}
 

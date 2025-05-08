@@ -328,9 +328,12 @@
 
                             </form>
                         </div>
+                        <button type="button" class="btn btn-danger btn" id="clear-cart">clear cart</button>
+
                         <table class="table">
                             <thead>
                             <tr>
+                                <th scope="col">Order Id</th>
                                 <th scope="col">Item code</th>
                                 <th scope="col">Item name</th>
                                 <th scope="col">Price</th>
@@ -341,6 +344,7 @@
                             <tbody id="place-order-tbody">
                             <tr>
                                 <th scope="row">1</th>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -376,7 +380,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="orderDate" class="form-label">Order Date:</label>
-                                            <input type="text" class="form-control" id="orderDate">
+                                            <input type="date" class="form-control" id="orderDate">
                                         </div>
                                         <div class="mb-3">
                                             <label for="OrderCustomerName" class="form-label">Customer name:</label>
