@@ -1,7 +1,7 @@
 import {loadCustomerIds} from "./OrderController.js";
 import {loadItemIds} from "./OrderController.js";
 import {loadTable} from "./ItemController.js";
-import {loadOrderHistoryTable} from "./OrderHistoryController.js";
+import {loadOrderHistoryTable,loadCustomerNameOrders} from "./OrderHistoryController.js";
 
 $('#home').css('display', 'block');
 $('#customer').css('display', 'none');
@@ -64,5 +64,6 @@ $('#order-history-btn').on('click', function(){
     $('#order-history').css('display', 'block');
 
     loadOrderHistoryTable();
+    loadCustomerNameOrders();
 });
 

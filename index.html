@@ -401,6 +401,17 @@
 <!--            Order history section-->
             <section id="order-history">
 
+                <div class="mb-2">
+                    <label for="Customer-Id" class="form-label lable-from">Choose Customer Id: </label>
+                    <select class="form-control" id="Customer-Id" aria-describedby="emailHelp">
+                        <option value="" disabled selected></option>
+                    </select>
+                </div>
+                <div class="card-body btn-group">
+                    <button type="button" class="btn btn-primary" id="customer-order-search-btn">Search</button>
+                    <button type="button" class="btn btn-info" id="customer-order-clear-btn">Clear</button>
+                </div>
+
                 <table class="table">
                     <thead>
                     <tr>

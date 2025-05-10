@@ -86,11 +86,12 @@ function loadCustomerIds() {
     Customer.forEach((customer , index) => {
         dropdown.append(`<option value="${index}">${index + 1}</option>`);
     });
-
-
 }
 
 $('#CustomerId').on('change', function () {
+
+    $('#place-order-tbody').empty();
+
     let customerIndex = $('#CustomerId').val();
     $('#CustomerName').val(Customer[customerIndex].customerName);
     $('#CustomerAddress').val(Customer[customerIndex].customerAddress);
