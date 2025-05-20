@@ -2,6 +2,15 @@ import {Customer} from "../db/db.js";
 import CustomerModel from "../model/CustomerModel.js";
 
 var clickedCustomerIndex = '';
+if (localStorage.getItem("customer_data")) {
+    let raw = JSON.parse(localStorage.getItem("customer_data"));
+
+    let loaded = raw.map(c => new CustomerModel(c.register, c.customerName, c.customerAddress));
+    Customer.length = 0;
+    Customer.push(...loaded);
+}
+
+
 
 $('#saveCustomerBtn').on('click', function(){
     let register = $('#register').val();
@@ -27,6 +36,7 @@ $('#saveCustomerBtn').on('click', function(){
     }else{
         let newCustomer = new CustomerModel(register, customerName, customerAddress);
         Customer.push(newCustomer);
+        localStorage.setItem("customer_data", JSON.stringify(Customer));
         loadTable();
 
         Swal.fire({
@@ -113,6 +123,8 @@ function updateCustomer(){
     }else{
         let updatedCustomer = new CustomerModel(register, customerName, customerAddress);
         Customer[index] = updatedCustomer;
+        localStorage.setItem("customer_data", JSON.stringify(Customer));
+
         loadTable();
 
         Swal.fire({
