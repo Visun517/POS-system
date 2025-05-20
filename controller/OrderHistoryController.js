@@ -1,11 +1,13 @@
 import {Customer, Orders} from "../db/db.js";
 
-
+$(document).ready(function () {
+    loadOrderHistoryTable();
+})
 function loadOrderHistoryTable() {
     $('#order-history-tbody').empty();
 
     Orders.forEach((order, index) => {
-        order.item.forEach((item, itemIndex) => {
+        order.items.forEach((item, itemIndex) => {
             let row = `<tr>
                                  <td>${index + 1}</td>
                                  <td>${order.customerName}</td>

@@ -3,6 +3,14 @@ import ItemModel from "../model/ItemModel.js";
 
 var  clickedItemIndex = 0;
 
+if (localStorage.getItem("item_data")) {
+    let raw = JSON.parse(localStorage.getItem("item_data"));
+
+    let loaded = raw.map(i => new ItemModel(i.stock, i.itemName, i.quantity, i.unitPrice));
+    Item.length = 0;
+    Item.push(...loaded);
+}
+
 $('#saveItemBtn').on('click', function(){
     let stock = $('#stock').val();
     let itemName = $('#itemName1').val();
@@ -28,6 +36,7 @@ $('#saveItemBtn').on('click', function(){
     }else{
         let newItem = new ItemModel(stock, itemName, itemQuantity , itemPrice);
         Item.push(newItem);
+        localStorage.setItem("customer_data", JSON.stringify(Item));
         loadTable();
 
         Swal.fire({
@@ -121,6 +130,7 @@ function updateItem(){
     }else{
         let updatedItem = new ItemModel(stock, itemName, quantity, unitPrice);
         Item[index] = updatedItem;
+        localStorage.setItem("customer_data", JSON.stringify(Item));
         loadTable();
 
         Swal.fire({
