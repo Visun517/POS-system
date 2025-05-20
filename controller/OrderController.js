@@ -4,7 +4,16 @@ import OrderModel from "../model/OrderModel.js";
 var labelTotalPrice=0;
 var subTotalPrice=0;
 
+if (localStorage.getItem("orders_data")) {
+    let raw = JSON.parse(localStorage.getItem("orders_data"));
+
+    let loaded = raw.map(o => new OrderModel(o.items, o.totalPrice, o.date, o.customerName));
+    Orders.length = 0;
+    Orders.push(...loaded);
+}
+
 $(document).ready(function () {
+
     $('#place-order-tbody').empty();
 
     let nextOrderId = Orders.length + 1;
@@ -215,6 +224,7 @@ $('#Discount').on('change', function(){
                     totalPrice +=total - 50;
                     cartItemArray.push(item);
                     console.log(cartItemArray);
+
                 }
             })
             let date = $('#date').val();
@@ -227,6 +237,8 @@ $('#Discount').on('change', function(){
                 customerName
             );
             Orders.push(newOrder);
+            localStorage.setItem("orders_data", JSON.stringify(Orders.item));
+            localStorage.setItem("orders_data", JSON.stringify(Orders));
             console.log(Orders);
 
             let nextOrderId = Orders.length + 1;
